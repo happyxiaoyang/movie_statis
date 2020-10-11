@@ -1,5 +1,6 @@
 import pandas as pd
 import time 
+from datetime import datetime
 
 tag = pd.read_csv('C:/Users/lenovo/Desktop/培训作业/第一周/python/ml-25m/tags.csv')
 rating = pd.read_csv('C:/Users/lenovo/Desktop/培训作业/第一周/python/ml-25m/ratings.csv')
@@ -26,3 +27,9 @@ print('一共有%s不同的电影种类' %(len(tag_set)))
 movie_link = set(link.movieId)
 movie_unlink = movie_set - movie_link
 print('一共有%s电影没有外部链接' %(len(movie_unlink)))
+
+#18年评分人数
+rating['year'] = rating['timestamp'].apply(lambda x:datetime.fromtimestamp(x).year)
+users_rating_18 = set(rating[rating['year']==2018]['userId'])
+print('2018年一共有多少%s人进行过电影评分'%len(users_rating_18))
+
